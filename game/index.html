@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solmara Heat — Open-World Crime</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">
+{ "imports": { "three": "./vendor/three.module.min.js" } }
+</script>
+</head>
+<body>
+<div id="app"></div>
+
+<!-- HUD -->
+<div id="hud" class="hidden">
+  <div id="top-left">
+    <div id="stars" aria-label="wanted level"></div>
+    <div id="cash">$0</div>
+    <div id="health-wrap"><div id="health-bar"></div><span id="health-num">100</span></div>
+  </div>
+  <div id="top-right"><canvas id="minimap" width="200" height="200"></canvas><div id="clock">18:40</div></div>
+  <div id="mission-box"><div id="mission-title">SOLMARA HEAT</div><div id="mission-obj"></div><div id="mission-dist"></div></div>
+  <div id="speedo" class="hidden"><span id="speed-num">0</span><span id="speed-unit">km/h</span></div>
+  <div id="crosshair" class="hidden">+</div>
+  <div id="toast"></div>
+  <div id="prompt"></div>
+  <div id="objective-arrow">▲</div>
+  <div id="wanted-flash" class="hidden">WANTED</div>
+</div>
+
+<!-- Dialogue / mission cutscene -->
+<div id="dialog" class="hidden">
+  <div id="dialog-name"></div>
+  <div id="dialog-text"></div>
+  <div id="dialog-hint">Tekan E / klik untuk lanjut</div>
+</div>
+
+<!-- Start screen -->
+<div id="start-screen">
+  <div class="title-block">
+    <h1>SOLMARA<br><span>HEAT</span></h1>
+    <p class="tagline">Kota pesisir. Satu kesempatan. Lima bintang buronan.</p>
+    <p class="story">Kamu <b>Dario Voss</b>, kurir jalanan Solmara yang baru keluar dari penjara.
+    <b>Rico Marlowe</b> menunggumu di dermaga — empat pekerjaan, satu jalan keluar dari kota ini.
+    Curi mobil, kabur dari polisi, dan jangan sampai ketangkap.</p>
+    <div class="controls-grid">
+      <div><b>WASD</b> jalan / mengemudi</div><div><b>Mouse</b> kamera</div>
+      <div><b>E</b> masuk / curi mobil · interaksi</div><div><b>Shift</b> lari</div>
+      <div><b>Spasi</b> lompat</div><div><b>Klik</b> tembak · <b>F</b> pukul</div>
+      <div><b>1 / 2</b> tinju / pistol</div><div><b>P / Esc</b> jeda</div>
+    </div>
+    <div class="btn-row">
+      <button id="btn-start">▶ MULAI PETUALANGAN</button>
+      <button id="btn-continue" class="hidden">↻ LANJUTKAN SAVE</button>
+    </div>
+    <p class="foot">Game orisinal buatan dari nol · Kota Solmara, karakter &amp; kendaraan fiktif ·
+    Musik &amp; suara disintesis WebAudio · <span id="save-info"></span></p>
+  </div>
+</div>
+
+<!-- Pause -->
+<div id="pause-screen" class="hidden">
+  <h2>JEDA</h2>
+  <p id="pause-stats"></p>
+  <div class="btn-row">
+    <button id="btn-resume">Lanjutkan</button>
+    <button id="btn-save">Simpan Game</button>
+    <button id="btn-restart">Mulai Ulang</button>
+  </div>
+  <p class="foot">Save tersimpan di browser ini (localStorage).</p>
+</div>
+
+<!-- Busted / dead -->
+<div id="end-screen" class="hidden">
+  <h2 id="end-title">TERTANGKAP!</h2>
+  <p id="end-text"></p>
+  <div class="btn-row"><button id="btn-retry">Coba Lagi</button></div>
+</div>
+
+<script type="module" src="./src/main.js"></script>
+</body>
+</html>

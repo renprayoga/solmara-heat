@@ -1,0 +1,78 @@
+/* SOLMARA HEAT — HUD + menu styling. Original design, no external assets. */
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; overflow: hidden; background: #1a0f2e;
+  font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; color: #fff; }
+#app, #app canvas { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+.hidden { display: none !important; }
+
+/* ---------- HUD ---------- */
+#hud { position: fixed; inset: 0; pointer-events: none; z-index: 5; }
+#top-left { position: absolute; top: 14px; left: 16px; }
+#stars { font-size: 26px; letter-spacing: 4px; color: #ffd23f; text-shadow: 0 0 8px #000, 0 2px 2px #000; min-height: 32px; }
+#stars .dim { color: rgba(255,255,255,.28); }
+#cash { font-size: 24px; font-weight: 800; color: #7dff9b; text-shadow: 0 0 8px #000, 0 2px 2px #000; margin-top: 2px; }
+#cash::before { content: "💵 "; }
+#health-wrap { margin-top: 6px; width: 190px; height: 16px; background: rgba(0,0,0,.55);
+  border: 1px solid rgba(255,255,255,.5); border-radius: 8px; overflow: hidden; position: relative; }
+#health-bar { height: 100%; width: 100%; background: linear-gradient(90deg, #ff5a5a, #ff9a3d); transition: width .2s; }
+#health-num { position: absolute; inset: 0; text-align: center; font-size: 11px; font-weight: 700; line-height: 16px; text-shadow: 0 1px 2px #000; }
+#top-right { position: absolute; top: 14px; right: 16px; text-align: right; }
+#minimap { border: 2px solid rgba(255,255,255,.75); border-radius: 50%; background: #0c1a2e;
+  box-shadow: 0 0 0 4px rgba(0,0,0,.35), 0 4px 18px rgba(0,0,0,.6); }
+#clock { margin-top: 4px; font-size: 15px; font-weight: 700; text-shadow: 0 1px 3px #000; }
+#mission-box { position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  background: rgba(10,10,26,.72); border: 1px solid rgba(255,210,63,.65); border-radius: 10px;
+  padding: 8px 16px; text-align: center; max-width: 460px; }
+#mission-title { font-size: 12px; letter-spacing: 3px; color: #ffd23f; font-weight: 800; }
+#mission-obj { font-size: 15px; font-weight: 600; margin-top: 2px; }
+#mission-dist { font-size: 12px; color: #9fd8ff; }
+#speedo { position: absolute; right: 22px; bottom: 20px; font-size: 34px; font-weight: 800;
+  text-shadow: 0 0 10px #000, 0 2px 2px #000; }
+#speed-unit { font-size: 14px; margin-left: 4px; color: #ffd23f; }
+#crosshair { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);
+  font-size: 26px; color: #fff; text-shadow: 0 0 6px #000; }
+#toast { position: absolute; left: 50%; bottom: 110px; transform: translateX(-50%);
+  font-size: 19px; font-weight: 700; color: #ffe9a8; text-shadow: 0 0 8px #000, 0 2px 2px #000;
+  text-align: center; opacity: 0; transition: opacity .25s; white-space: nowrap; }
+#prompt { position: absolute; left: 50%; bottom: 64px; transform: translateX(-50%);
+  background: rgba(0,0,0,.65); border: 1px solid #fff; border-radius: 8px; padding: 7px 14px;
+  font-size: 15px; font-weight: 600; }
+#objective-arrow { position: absolute; left: 50%; top: 88px; font-size: 22px; color: #ffd23f;
+  text-shadow: 0 0 8px #000; transform: translateX(-50%); transition: transform .1s linear; }
+#wanted-flash { position: absolute; left: 50%; top: 38%; transform: translate(-50%,-50%);
+  font-size: 64px; font-weight: 900; letter-spacing: 8px; color: #ff3b3b;
+  text-shadow: 0 0 24px rgba(255,0,0,.8), 0 4px 4px #000; animation: pulse .5s infinite alternate; }
+@keyframes pulse { from { opacity: .65; } to { opacity: 1; } }
+
+/* ---------- Dialogue ---------- */
+#dialog { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%); z-index: 8;
+  width: min(680px, 92vw); background: rgba(8,8,22,.88); border: 1px solid #ffd23f;
+  border-left: 6px solid #ffd23f; border-radius: 12px; padding: 14px 18px; }
+#dialog-name { color: #ffd23f; font-weight: 800; letter-spacing: 2px; font-size: 13px; }
+#dialog-text { font-size: 17px; line-height: 1.45; margin-top: 4px; min-height: 44px; }
+#dialog-hint { font-size: 12px; color: #9fd8ff; text-align: right; margin-top: 6px; }
+
+/* ---------- Screens ---------- */
+#start-screen, #pause-screen, #end-screen { position: fixed; inset: 0; z-index: 10;
+  display: flex; align-items: center; justify-content: center; text-align: center;
+  background: linear-gradient(160deg, rgba(26,8,46,.88), rgba(120,30,10,.82) 55%, rgba(10,30,60,.88)); }
+.title-block { max-width: 640px; padding: 20px; }
+h1 { font-size: 76px; line-height: .9; margin: 0; letter-spacing: 2px;
+  text-shadow: 0 0 30px rgba(255,120,40,.7), 0 4px 0 #000; }
+h1 span { color: #ffd23f; }
+.tagline { font-size: 18px; color: #ffe9a8; margin: 10px 0 4px; font-style: italic; }
+.story { font-size: 15px; line-height: 1.5; color: #e8e8f0; }
+.story b { color: #ffd23f; }
+.controls-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; text-align: left;
+  font-size: 13.5px; background: rgba(0,0,0,.35); border-radius: 10px; padding: 12px 16px; margin: 14px 0; }
+.controls-grid b { color: #9fd8ff; }
+.btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 8px; }
+button { pointer-events: auto; cursor: pointer; font-size: 17px; font-weight: 800; letter-spacing: 1px;
+  color: #1a0f2e; background: linear-gradient(180deg, #ffe066, #ffb52e); border: none;
+  border-radius: 10px; padding: 13px 26px; box-shadow: 0 4px 0 #a86e00, 0 6px 18px rgba(0,0,0,.5); }
+button:hover { filter: brightness(1.1); }
+button:active { transform: translateY(2px); box-shadow: 0 2px 0 #a86e00; }
+.foot { font-size: 12px; color: rgba(255,255,255,.65); margin-top: 16px; }
+#pause-screen h2, #end-screen h2 { font-size: 52px; margin: 0 0 8px; letter-spacing: 4px;
+  text-shadow: 0 0 24px rgba(255,60,60,.8), 0 4px 0 #000; }
+#pause-stats, #end-text { font-size: 16px; line-height: 1.6; max-width: 520px; }
