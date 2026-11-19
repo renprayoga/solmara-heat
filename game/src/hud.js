@@ -92,7 +92,7 @@ export function createHud() {
       c.restore();
       // north arrow
       c.fillStyle = '#fff'; c.font = 'bold 13px sans-serif'; c.textAlign = 'center';
-      c.fillText('N', 100, 14);
+      c.fillText('U', 100, 14);
       c.beginPath(); c.moveTo(100, 28); c.lineTo(96, 20); c.lineTo(104, 20); c.closePath(); c.fill();
     },
   };

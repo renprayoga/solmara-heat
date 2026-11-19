@@ -5,7 +5,7 @@ import * as THREE from 'three';
 import { clamp, dist2d, angleLerp } from './util.js';
 import { spawnCar } from './vehicles.js';
 
-const POLICE_DEF = { name: 'Patrol Interceptor', color: 0x1a1d24, top: 26, accel: 20, max: 36, len: 4.4 };
+const POLICE_DEF = { name: 'Interceptor Patroli', color: 0x1a1d24, top: 26, accel: 20, max: 36, len: 4.4 };
 
 export function createPolice(scene) {
   return {

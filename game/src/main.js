@@ -54,7 +54,7 @@ for (const b of colliders) buildings.push({ x: (b.minX + b.maxX) / 2, z: (b.minZ
 // ---------- game state ----------
 const game = {
   state: 'menu', // menu | playing | paused | busted
-  dialogOpen: false, shotReady: false,
+  dialogOpen: false, shotReady: false, helpOpen: false,
   hud: createHud(), audio: createAudio(),
   player: null, police: null, missions: null, combat: null, traffic: null,
   parked: [], car: null, inCar: false,
@@ -157,8 +157,12 @@ window.addEventListener('keydown', e => {
   if (e.code === 'KeyF') { if (game.state === 'playing' && !game.inCar) playerPunch(game.combat, game.player); }
   if (e.code === 'Digit1') { game.player.weapon = 'fist'; game.toast('Tinju'); }
   if (e.code === 'Digit2') { game.player.weapon = 'gun'; game.toast('Pistol — klik untuk menembak'); }
+  if (e.code === 'KeyH') { toggleHelp(); return; }
   if (e.code === 'KeyM') { game.audio.muted = !game.audio.muted; if (game.audio.master) game.audio.master.gain.value = game.audio.muted ? 0 : 0.4; }
-  if (e.code === 'KeyP' || e.code === 'Escape') togglePause();
+  if (e.code === 'KeyP' || e.code === 'Escape') {
+    if (game.helpOpen) { closeHelp(); return; }
+    togglePause();
+  }
   if (e.code === 'Enter' && game.dialogOpen) advanceDialog(game.missions);
 });
 window.addEventListener('keyup', e => input.keys.delete(e.code));
@@ -250,6 +254,27 @@ game.toast = t => game.hud.toast(t);
 game.saveGame = saveGame;
 game.hud = game.hud;
 
+function toggleHelp() {
+  if (game.helpOpen) { closeHelp(); return; }
+  if (game.state !== 'playing' && game.state !== 'paused') return;
+  game.helpOpen = true;
+  game.state = 'paused'; // freeze the world while the help overlay is open
+  document.getElementById('pause-screen').classList.add('hidden');
+  document.getElementById('help-overlay').classList.remove('hidden');
+  document.exitPointerLock?.();
+}
+function closeHelp() {
+  if (!game.helpOpen) return;
+  game.helpOpen = false;
+  document.getElementById('help-overlay').classList.add('hidden');
+  if (game.state === 'paused') {
+    game.state = 'playing';
+    document.getElementById('pause-screen').classList.add('hidden');
+  }
+}
+game.toggleHelp = toggleHelp;
+game.closeHelp = closeHelp;
+
 function togglePause() {
   if (game.state === 'playing') {
     game.state = 'paused';
@@ -315,6 +340,7 @@ function startGame(skipIntro) {
 game.startGame = startGame;
 
 // ---------- buttons ----------
+document.getElementById('btn-help-close').addEventListener('click', closeHelp);
 document.getElementById('btn-start').addEventListener('click', () => startGame(false));
 document.getElementById('btn-resume').addEventListener('click', togglePause);
 document.getElementById('btn-save').addEventListener('click', () => { saveGame(); game.toast('Game disimpan!'); });

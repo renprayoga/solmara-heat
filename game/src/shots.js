@@ -35,7 +35,7 @@ export function stageShot(game, shot) {
     g.player.camYaw = 0;
     g.hud.setObjective('JELAJAHI SOLMARA', 'Bebas — curi mobil, kabur, kerjakan misi');
     g.hud.setDistance('');
-    g.toast('Sunset Coupe — 132 km/h!');
+    g.toast('Sunset Coupe — 132 km/jam!');
   } else if (shot === 'mission') {
     // mission 3 fight at the tower car park, thugs + objective beacon
     g.player.weapon = 'gun';
