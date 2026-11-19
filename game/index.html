@@ -1,9 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="id">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Solmara Heat — Open-World Crime</title>
+<title>Solmara Heat — Kejahatan Dunia Terbuka</title>
 <link rel="icon" href="data:,">
 <link rel="stylesheet" href="./style.css">
 <script type="importmap">
@@ -16,18 +16,18 @@
 <!-- HUD -->
 <div id="hud" class="hidden">
   <div id="top-left">
-    <div id="stars" aria-label="wanted level"></div>
+    <div id="stars" aria-label="level buronan"></div>
     <div id="cash">$0</div>
     <div id="health-wrap"><div id="health-bar"></div><span id="health-num">100</span></div>
   </div>
   <div id="top-right"><canvas id="minimap" width="200" height="200"></canvas><div id="clock">18:40</div></div>
   <div id="mission-box"><div id="mission-title">SOLMARA HEAT</div><div id="mission-obj"></div><div id="mission-dist"></div></div>
-  <div id="speedo" class="hidden"><span id="speed-num">0</span><span id="speed-unit">km/h</span></div>
+  <div id="speedo" class="hidden"><span id="speed-num">0</span><span id="speed-unit">km/jam</span></div>
   <div id="crosshair" class="hidden">+</div>
   <div id="toast"></div>
   <div id="prompt"></div>
   <div id="objective-arrow">▲</div>
-  <div id="wanted-flash" class="hidden">WANTED</div>
+  <div id="wanted-flash" class="hidden">BURONAN</div>
 </div>
 
 <!-- Dialogue / mission cutscene -->
@@ -50,6 +50,7 @@
       <div><b>E</b> masuk / curi mobil · interaksi</div><div><b>Shift</b> lari</div>
       <div><b>Spasi</b> lompat</div><div><b>Klik</b> tembak · <b>F</b> pukul</div>
       <div><b>1 / 2</b> tinju / pistol</div><div><b>P / Esc</b> jeda</div>
+      <div><b>H</b> bantuan kontrol</div><div><b>M</b> bisu / suara</div>
     </div>
     <div class="btn-row">
       <button id="btn-start">▶ MULAI PETUALANGAN</button>
@@ -64,12 +65,34 @@
 <div id="pause-screen" class="hidden">
   <h2>JEDA</h2>
   <p id="pause-stats"></p>
+  <div class="controls-grid">
+    <div><b>WASD</b> jalan / mengemudi</div><div><b>Mouse</b> kamera</div>
+    <div><b>E</b> masuk / curi mobil · interaksi</div><div><b>Shift</b> lari</div>
+    <div><b>Spasi</b> lompat</div><div><b>Klik</b> tembak · <b>F</b> pukul</div>
+    <div><b>1 / 2</b> tinju / pistol</div><div><b>P / Esc</b> lanjut</div>
+    <div><b>H</b> bantuan kontrol</div><div><b>M</b> bisu / suara</div>
+  </div>
   <div class="btn-row">
     <button id="btn-resume">Lanjutkan</button>
     <button id="btn-save">Simpan Game</button>
     <button id="btn-restart">Mulai Ulang</button>
   </div>
   <p class="foot">Save tersimpan di browser ini (localStorage).</p>
+</div>
+
+<!-- Help overlay (tombol H saat bermain) -->
+<div id="help-overlay" class="hidden">
+  <h2>BANTUAN KONTROL</h2>
+  <p class="help-sub">Game dijeda — tekan H / Esc atau tombol Tutup untuk lanjut bermain.</p>
+  <div class="controls-grid">
+    <div><b>WASD</b> jalan / mengemudi</div><div><b>Mouse</b> kamera</div>
+    <div><b>E</b> masuk / curi mobil · interaksi</div><div><b>Shift</b> lari</div>
+    <div><b>Spasi</b> lompat</div><div><b>Klik</b> tembak · <b>F</b> pukul</div>
+    <div><b>1 / 2</b> tinju / pistol</div><div><b>P / Esc</b> jeda</div>
+    <div><b>H</b> bantuan kontrol</div><div><b>M</b> bisu / suara</div>
+  </div>
+  <div class="btn-row"><button id="btn-help-close">Tutup</button></div>
+  <p class="foot">Curi mobil dengan E di dekat mobil · kabur sampai bintang buronan hilang · ikuti marker kuning di minimap.</p>
 </div>
 
 <!-- Busted / dead -->
