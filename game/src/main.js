@@ -233,7 +233,9 @@ function enterCar(car) {
   game.player.group.visible = false;
   game.audio.playBlip();
   game.toast('Mobil dicuri: ' + car.def.name + ' — polisi tidak suka ini!');
+  const before = game.police.wanted;
   addWanted(game.police, 25, 'steal');
+  if (game.police.wanted > before) game.toast(`BURONAN naik — ${game.police.wanted} bintang!`);
   game.hud.showWantedFlash(true);
   setTimeout(() => game.hud.showWantedFlash(false), 1200);
 }
@@ -344,7 +346,9 @@ document.getElementById('btn-help-close').addEventListener('click', closeHelp);
 document.getElementById('btn-start').addEventListener('click', () => startGame(false));
 document.getElementById('btn-resume').addEventListener('click', togglePause);
 document.getElementById('btn-save').addEventListener('click', () => { saveGame(); game.toast('Game disimpan!'); });
-document.getElementById('btn-restart').addEventListener('click', () => location.reload());
+document.getElementById('btn-restart').addEventListener('click', () => {
+  if (confirm('Mulai ulang? Progres yang belum disimpan akan hilang.')) location.reload();
+});
 document.getElementById('btn-retry').addEventListener('click', () => {
   document.getElementById('end-screen').classList.add('hidden');
   document.getElementById('hud').classList.remove('hidden');
@@ -387,7 +391,10 @@ function frame(now) {
       // hitting pedestrians / traffic at speed raises wanted
       for (const p of game.traffic.peds) {
         if (dist2d(game.car.pos.x, game.car.pos.z, p.x, p.z) < 2 && Math.abs(game.car.speed) > 6) {
-          p.panic = 3; addWanted(game.police, 15, 'hit');
+          p.panic = 3;
+          const before = game.police.wanted;
+          addWanted(game.police, 15, 'hit');
+          if (game.police.wanted > before) game.toast(`BURONAN naik — ${game.police.wanted} bintang!`);
         }
       }
     } else {

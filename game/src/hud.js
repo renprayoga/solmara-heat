@@ -81,7 +81,12 @@ export function createHud() {
       }
       // traffic cars (white), police (blue/red), enemies (red)
       for (const car of state.cars) { c.fillStyle = '#fff'; c.fillRect(px(car.x) - 2, py(car.z) - 2, 4, 4); }
-      for (const car of state.police) { c.fillStyle = '#4080ff'; c.beginPath(); c.arc(px(car.x), py(car.z), 4, 0, Math.PI * 2); c.fill(); }
+      // police (blue triangle, up) — shape, not just color, vs red-circle enemies
+      for (const car of state.police) {
+        const x = px(car.x), y = py(car.z);
+        c.fillStyle = '#4080ff';
+        c.beginPath(); c.moveTo(x, y - 5); c.lineTo(x + 5, y + 4); c.lineTo(x - 5, y + 4); c.closePath(); c.fill();
+      }
       for (const e of state.enemies) { c.fillStyle = '#ff4030'; c.beginPath(); c.arc(px(e.x), py(e.z), 3, 0, Math.PI * 2); c.fill(); }
       // player arrow (rotates with facing)
       c.save();
